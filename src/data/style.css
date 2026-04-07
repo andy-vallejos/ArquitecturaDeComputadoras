@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background: #1e1e1e;
+  display: flex;
+  padding: 100px;
+  justify-content: center;
+  align-items: flex-start;
+  color: #c9c9c9;
+  font-family: system-ui;
+}
+
+.titulo {
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 20px;
+  background: #1b1b1b;
+  box-shadow: 0px 0px 10px 1px #181717;
+}
+
+.termometro {
+  width: 100px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.tubo {
+  height: 350px;
+  background: #1b1b1b;
+  z-index: 10;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px;
+  transition: all 0.5s ease;
+}
+
+.temperatura {
+  width: 120px;
+  height: 320px;
+  position: absolute;
+  top: 20px;
+  right: 10;
+  margin: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+
+.medidor {
+  width: 10%;
+  max-width: 70%;
+  border-radius: 50px 50px 0px 0px;
+  transition: all 0.5s ease;
+}
+
+.base {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+
+.burbuja {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-top: -100px;
+  background: #1b1b1b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+.punto {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #1b1b1b;
+  display: flex;
+  align-items: center;
+  z-index: 50;
+  justify-content: center;
+}
+
+#temp {
+  min-width: 100px;
+}
+
+.grupo {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 20px;
+  background: #1b1b1b;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px 1px #181717;
+}
+
+.grupo li {
+  list-style: none;
+}
+
+.message {
+  width: 250px;
+  background: #1b1b1b;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 1px #181717;
+}
+
+#text {
+  transition: all 0.3s ease;
+}
+
+.monitor {
+  width: 300px;
+  height: 83%;
+  padding: 20px;
+  background: #1b1b1b;
+  box-shadow: 0px 0px 10px 1px #181717;
+
+  overflow-y: hidden;
+  position: absolute;
+  right: 20px;
+  border-radius: 10px;
+}

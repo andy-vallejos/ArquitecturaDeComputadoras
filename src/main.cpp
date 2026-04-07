@@ -1,51 +1,34 @@
-#include <Arduino.h>
-#include <OneWire.h>
-#include <DallasTemperature.h>
+#include "config.h"
+#include "modules/handleNetwork.h"
+#include "modules/handleTemp.h"
+#include "modules/handleLeds.h"
+#include "modules/handleWeb.h"
 
-
-const int pinDatos = 23; 
-const int ledRojo = 21;
-const int ledVerde = 22;
-const int ledAzul =  19;
-
-OneWire oneWire(pinDatos);
-DallasTemperature sensors(&oneWire);
+WebServer server(80);
+unsigned long lastCheck = 0;
+const unsigned long interval = 1000; 
 
 void setup() {
   Serial.begin(115200);
-  sensors.begin();
+  iniciarLeds();
+  iniciarSensorTemp(PIN_DATOS);
 
-  pinMode(ledRojo, OUTPUT);
-  pinMode(ledVerde, OUTPUT);
-  pinMode(ledAzul, OUTPUT);
-
-  Serial.println("Buscando sensor de temperatura...");
+  if(!LittleFS.begin(true)){
+    Serial.println("Error en LittleFS");
+    return;
+  }
+  setupWiFi(WIFI_SSID, WIFI_PASS);
+  setupWebServer(server);
 }
 
 void loop() {
-  sensors.requestTemperatures(); 
-  float tempC = sensors.getTempCByIndex(0); 
+  server.handleClient();
 
-  if(tempC != DEVICE_DISCONNECTED_C) {
-    Serial.println("Temperatura: " + String(tempC) + " °C");
-
-    digitalWrite(ledRojo, LOW);
-    digitalWrite(ledVerde, LOW);
-    digitalWrite(ledAzul, LOW);
-
-    if(tempC > 30){
-      digitalWrite(ledRojo, HIGH); 
+  if (millis() - lastCheck >= interval) {
+    float temp = leerTemperatura();
+    if (temp != -999.0) {
+      actualizarLeds(temp);
     }
-    else if(tempC >= 25){
-      digitalWrite(ledVerde, HIGH); 
-    }
-    else{
-      digitalWrite(ledAzul, HIGH); 
-    }
-
-  } else {
-    Serial.println("Error: No se detecta el sensor. Revisa cables y resistencia.");
+    lastCheck = millis();
   }
-
-  delay(1000);
 }
