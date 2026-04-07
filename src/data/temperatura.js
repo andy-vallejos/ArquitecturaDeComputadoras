@@ -46,20 +46,14 @@ function aplicarEstilos(temperatura) {
 }
 
 function actualizarTemperatura() {
-  fetch("/temp")
-    .then((response) => {
-      if (!response.ok) throw new Error("Error en la red");
-      return response.text();
+  fetch("http://localhost:192/temp")
+    .then((r) => r.text())
+    .then((data) => {
+      console.log(data);
+      const temp = parseInt(data);
+      aplicarEstilos(temp);
     })
-    .then((texto) => {
-      aplicarEstilos(texto);
-    })
-    .catch((error) => {
-      console.error("Hubo un problema:", error);
-      temperatura = Math.floor(Math.random() * 91);
-
-      aplicarEstilos(temperatura);
-    });
+    .catch((err) => console.error(err));
 }
 
 actualizarTemperatura();
