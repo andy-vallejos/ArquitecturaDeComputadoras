@@ -3,6 +3,8 @@
 void handleTemp(WebServer& server) {
   float t = leerTemperatura();
   server.sendHeader("Access-Control-Allow-Origin", "*");
+  server.sendHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
   server.send(200, "text/plain", String(t));
 }
 
