@@ -2,6 +2,7 @@
 
 void handleTemp(WebServer& server) {
   float t = leerTemperatura();
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/plain", String(t));
 }
 
